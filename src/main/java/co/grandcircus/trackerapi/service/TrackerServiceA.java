@@ -1,8 +1,10 @@
 package co.grandcircus.trackerapi.service;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 import co.grandcircus.trackerapi.model.CountPair;
 
+@Service
 public class TrackerServiceA implements TrackerService {
 
     @Override
