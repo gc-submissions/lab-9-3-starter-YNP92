@@ -1,15 +1,21 @@
 package co.grandcircus.trackerapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import co.grandcircus.trackerapi.model.CountPair;
 
 @Service
 public class TrackerServiceA implements TrackerService {
+    static public List<CountPair> countPairList = new ArrayList<>();
 
     @Override
     public void add(String token) {
         // TODO Auto-generated method stub
+        if (!countPairList.contains(token)) {
+            countPairList.add(new CountPair(token, 1));
+        }
+
     }
 
     @Override
