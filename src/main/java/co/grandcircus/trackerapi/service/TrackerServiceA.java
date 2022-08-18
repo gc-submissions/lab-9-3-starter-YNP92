@@ -11,8 +11,7 @@ public class TrackerServiceA implements TrackerService {
 	List<CountPair> countPairList = new ArrayList<>();
     @Override
     public void add(String token) {
-        // TODO Auto-generated method stub
-    	if (countPairList.contains(token))
+        
     }
 
     @Override
