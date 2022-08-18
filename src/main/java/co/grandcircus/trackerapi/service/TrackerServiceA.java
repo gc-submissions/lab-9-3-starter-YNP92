@@ -1,83 +1,123 @@
 package co.grandcircus.trackerapi.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.springframework.stereotype.Service;
 import co.grandcircus.trackerapi.model.CountPair;
 
 @Service
 public class TrackerServiceA implements TrackerService {
 
-<<<<<<< HEAD
-	List<CountPair> countPairList = new ArrayList<>();
-    @Override
-    public void add(String token) {
-        
-=======
-    static public List<CountPair> countPairList = new ArrayList<>();
+	static public List<CountPair> countPairList = new ArrayList<>();
+	private List<String> tokensInOrder;
 
-    @Override
-    public void add(String token) {
-        // TODO Auto-generated method stub
+	@Override
+	public void add(String token) {
+		tokensInOrder.add(token);
+		boolean found = false;
+		for (CountPair countPair : countPairList) {
+			if (countPair.getToken().equals(token)) {
+				countPair.setCount(countPair.getCount() + 1);
+				found = true;
+			}
+		}
+		if (found == false) {
+			countPairList.add(new CountPair(token, 1));
+		}
+	}
 
-        if (countPairList.size() == 0) {
-            countPairList.add(new CountPair(token, 1));
-        } else {
-            for (CountPair countPair : countPairList) {
-                if (countPair.getToken().equals(token)) {
-                    countPair.setCount(countPair.getCount() + 1);
-                }
-            }
-        }
->>>>>>> d335628961f589d9827e08938b0227a4ec9d86ab
-    }
+	@Override
+	public void reset() {
+		countPairList.clear();
+	}
 
-    @Override
-    public void reset() {
-        countPairList.clear();
-    }
+	@Override
+	public int getTotalCount() {
 
-    @Override
-    public int getTotalCount() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+		return countPairList.size();
+	}
 
-    @Override
-    public boolean getTokenExists(String token) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	@Override
+	public boolean getTokenExists(String token) {
+		boolean found = false;
+		for (CountPair countPair : countPairList) {
+			if (countPair.getToken().equals(token)) {
+				found = true;
+			}
+		}
+		return found;
+	}
 
-    @Override
-    public int getTokenCount(String token) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	@Override
+	public int getTokenCount(String token) {
+		int countPairCount = 0;
+		for (CountPair countPair : countPairList) {
+			if (countPair.getToken().equals(token)) {
+				countPairCount = countPair.getCount();
+			}
+		}
+		return countPairCount;
+	}
 
-    @Override
-    public String getLatest() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public String getLatest() {
+		return tokensInOrder.get(tokensInOrder.size() - 1);
+	}
 
-    @Override
-    public CountPair getTop() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public CountPair getTop() {
+		if (countPairList.size() == 0) {
+			return new CountPair("", 0);
+		} else {
+			int highest = 0;
+			CountPair topCount = new CountPair();
+			for (CountPair countPair : countPairList) {
+				if (countPair.getCount() > highest)  {
+					topCount = countPair;
+					highest = countPair.getCount();
+				}
+			}
+			return topCount;
+		}
 
-    @Override
-    public List<String> getLatest5() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	}
 
-    @Override
-    public List<CountPair> getTop5() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public List<String> getLatest5() {
+		List<String> lastFiveTokens = new ArrayList<>();
 
+		if (tokensInOrder.size() >= 5) {
+			for (int i = (tokensInOrder.size() - 1); i < (tokensInOrder.size() - 6); i--) {
+				lastFiveTokens.add(tokensInOrder.get(i));
+			}
+			return lastFiveTokens;
+		} else {
+			return tokensInOrder;
+		}
+
+
+	}
+
+	@Override
+	public List<CountPair> getTop5() {
+		List<CountPair> top5List = new ArrayList<>();
+		
+		if (countPairList.size() == 0) {
+			top5List.add(new CountPair("", 0));
+			return top5List;
+		} else if (countPairList.size() <= 5) {
+			return countPairList;
+		} else {
+			Map<String,Integer> top5 = new TreeMap<>();
+			for (CountPair countPair : countPairList) {
+				
+			}
+			return top5List;
+		}
+	}
 
 }
