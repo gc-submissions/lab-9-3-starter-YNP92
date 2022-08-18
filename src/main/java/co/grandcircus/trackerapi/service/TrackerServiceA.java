@@ -8,16 +8,33 @@ import co.grandcircus.trackerapi.model.CountPair;
 @Service
 public class TrackerServiceA implements TrackerService {
 
+<<<<<<< HEAD
 	List<CountPair> countPairList = new ArrayList<>();
     @Override
     public void add(String token) {
         
+=======
+    static public List<CountPair> countPairList = new ArrayList<>();
+
+    @Override
+    public void add(String token) {
+        // TODO Auto-generated method stub
+
+        if (countPairList.size() == 0) {
+            countPairList.add(new CountPair(token, 1));
+        } else {
+            for (CountPair countPair : countPairList) {
+                if (countPair.getToken().equals(token)) {
+                    countPair.setCount(countPair.getCount() + 1);
+                }
+            }
+        }
+>>>>>>> d335628961f589d9827e08938b0227a4ec9d86ab
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-
+        countPairList.clear();
     }
 
     @Override
