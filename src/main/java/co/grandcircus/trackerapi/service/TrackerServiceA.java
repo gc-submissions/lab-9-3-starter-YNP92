@@ -13,17 +13,9 @@ public class TrackerServiceA implements TrackerService {
     @Override
     public void add(String token) {
         // TODO Auto-generated method stub
-
-        if (countPairList.size() == 0) {
-            countPairList.add(new CountPair(token, 1));
-        } else {
-            for (CountPair countPair : countPairList) {
-                if (countPair.getToken().equals(token)) {
-                    countPair.setCount(countPair.getCount() + 1);
-                }
-            }
-        }
+        countPairList.add(new CountPair(token, 1));
     }
+
 
     @Override
     public void reset() {
