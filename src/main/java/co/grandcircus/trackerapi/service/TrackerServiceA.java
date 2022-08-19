@@ -1,9 +1,8 @@
 package co.grandcircus.trackerapi.service;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import co.grandcircus.trackerapi.model.CountPair;
 
@@ -109,22 +108,21 @@ public class TrackerServiceA implements TrackerService {
 
     @Override
     public List<CountPair> getTop5() {
-        // List<CountPair> top5List = new ArrayList<>();
+        List<CountPair> top5List = new ArrayList<>();
 
-        // if (countPairList.size() == 0) {
-        // top5List.add(new CountPair("", 0));
-        // return top5List;
-        // } else if (countPairList.size() <= 5) {
-        // return countPairList;
-        // } else {
-        // Map<String, Integer> top5 = new TreeMap<>();
-        // for (CountPair countPair : countPairList) {
-
-        // }
-        // return top5List;
-        // }
-
-        return null;
+        if (countPairList.size() == 0) {
+            top5List.add(new CountPair("", 0));
+            return top5List;
+        } else if (countPairList.size() <= 5) {
+            return countPairList;
+        } else {
+            Collections.sort(countPairList);
+            for (int i = 0; i < 5; i++) {
+                top5List.add(countPairList.get(i));
+            }
+            return top5List;
+        }
     }
+
 
 }

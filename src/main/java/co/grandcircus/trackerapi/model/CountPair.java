@@ -3,10 +3,10 @@ package co.grandcircus.trackerapi.model;
 /**
  * A structure representing a token and an associated count.
  */
-public class CountPair {
+public class CountPair implements Comparable<CountPair> {
 
 	private String token;
-	private int count;
+	private Integer count;
 
 	public CountPair() {
 		super();
@@ -33,7 +33,7 @@ public class CountPair {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
+
 	@Override
 	public String toString() {
 		return token + ":" + count;
@@ -66,5 +66,10 @@ public class CountPair {
 			return false;
 		return true;
 	}
+
+	public int compareTo(CountPair cp) {
+		return this.count.compareTo(cp.count);
+	}
+
 
 }
